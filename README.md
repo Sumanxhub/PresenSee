@@ -40,6 +40,20 @@ venv\Scripts\activate     # For Windows
 pip install -r requirements.txt
 ```
 
+### 4. Configuration
+
+All scripts under `src/core/` use a base directory path `BASE_DIR` that must be updated according to your machine:
+
+```python
+BASE_DIR = "/absolute/path/to/PresenSee"
+```
+
+Make sure to replace it in:
+- `face_register.py`
+- `face_trainer.py`
+- `face_recognition.py`
+- `convertToExcel.py`
+
 ---
 
 ## Project Structure
