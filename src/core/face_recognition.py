@@ -4,7 +4,7 @@ import pandas as pd
 from datetime import datetime
 
 # Define paths
-BASE_DIR = "/home/suman/Desktop/workspace/Projects/pyProjects/PresenSee"
+BASE_DIR = "/absolute/path/to/PresenSee/"
 HAARCASCADE_PATH = os.path.join(
     BASE_DIR, "models", "haarcascade_frontalface_default.xml")
 TRAINER_PATH = os.path.join(BASE_DIR, "models", "trainer.yml")

@@ -4,7 +4,7 @@ import os
 from PIL import Image
 
 # Define paths
-BASE_DIR = "/home/suman/Desktop/workspace/Projects/pyProjects/PresenSee"
+BASE_DIR = "/absolute/path/to/PresenSee/"
 USER_DATA_PATH = os.path.join(BASE_DIR, "dataset", "users")
 TRAINER_PATH = os.path.join(BASE_DIR, "models", "trainer.yml")
 

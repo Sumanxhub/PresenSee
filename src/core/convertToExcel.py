@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 
 # Paths
-BASE_DIR = "/home/suman/Desktop/workspace/Projects/pyProjects/PresenSee"
+BASE_DIR = "/absolute/path/to/PresenSee/"
 ATTENDANCE_DIR = os.path.join(BASE_DIR, "attendance")
 DATABASE_DIR = os.path.join(BASE_DIR, "database")
 
