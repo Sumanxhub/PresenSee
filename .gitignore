@@ -1,5 +1,6 @@
 # gitignore
 
 venv/
+.envrc/
 fileStructure.txt
 tempUserData/
