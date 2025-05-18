@@ -76,11 +76,10 @@ def register_face():
         else:
             popup.destroy()
             update_status(f"Registering face for {user_name}...")
-            # run_script(REGISTER_SCRIPT, [user_id, user_name])
             run_script(REGISTER_SCRIPT, ["--id", user_id, "--name", user_name])
             update_status(f"Face registered for {user_name}.")
 
-    tk.Button(popup, text="Submit", command=submit, width=15).pack(pady=10)
+    tk.Button(popup, text="Register", command=submit, width=15).pack(pady=10)
 
 
 def train_model():
