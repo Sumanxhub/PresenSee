@@ -9,15 +9,17 @@ This project is intended for **learning and prototyping purposes**, using simple
 
 ## Features
 
-- Face registration through webcam.
+- Face registration through webcam with user ID and name input.
 - Face detection and recognition using OpenCV’s LBPH model.
-- Auto-generates daily attendance CSV files.
-- Exports CSV attendance logs to Excel format.
-- Lightweight and easy to run on any system.
+- Attendance auto-logged into daily CSV files.
+- One-click export of CSV attendance logs to Excel format.
+- Prevents duplicate entries per user per day.
+- Simple and cross-platform GUI with Python's TKinter.
+- Clean and modular file structure.
 
 ---
 
-## Installation & Setup
+## Getting Started
 
 ### 1. Clone the Repository
 
@@ -28,10 +30,18 @@ cd PresenSee
 
 ### 2. Create and Activate a Virtual Environment (Recommended)
 
+For Linux/Mac
+
 ```bash
-python3 -m venv venv
-source venv/bin/activate  # For Linux/Mac
-venv\Scripts\activate     # For Windows
+python -m venv myvenv 
+source myvenv/bin/Activate
+```
+
+For Windows
+
+```cmd
+python -m venv myvenv
+myvenv\Scripts\activate
 ```
 
 ### 3. Install Required Packages
@@ -40,19 +50,58 @@ venv\Scripts\activate     # For Windows
 pip install -r requirements.txt
 ```
 
-### 4. Configuration
+---
 
-All scripts under `src/core/` use a base directory path `BASE_DIR` that must be updated according to your machine:
+## How to Use
 
-```python
-BASE_DIR = "/absolute/path/to/PresenSee"
+### Step 1: Run the GUI Application
+
+```bash
+python gui.py
 ```
 
-Make sure to replace it in:
-- `face_register.py`
-- `face_trainer.py`
-- `face_recognition.py`
-- `convertToExcel.py`
+### Step 2: Register Face
+
+> Click the **Register Face** button to start face registration.
+
+![Register Face Button](assets/1_startView.png)
+
+### Step 3: Enter User Details
+
+> Enter your **User ID** and **User Name** in the popup window and click **Register**.
+
+![Enter User Details](assets/2_Register_face.png)
+
+### Step 4: Face Registration in Progress
+
+> The system will capture multiple face images automatically.
+
+![Face Registration](assets/3_startRegistration.png)
+
+### Step 5: Train the Model
+
+> Click the **Train Model** button to train the face recognition model with registered data.
+
+![Train Model](assets/4_trainModel.png)
+
+### Step 6: Mark Attendance
+
+> Click the **Recognize & Mark Attendance** button to start face recognition and attendance marking.
+
+![Mark Attendance](assets/5_markAttendance.png)
+
+### Step 7: Convert CSV to Excel
+
+> Click the **Convert CSV to Excel** button to export attendance logs as Excel files.
+
+![Convert CSV to Excel](assets/6_converToExcel.png)
+
+### Step 8: View Attendance
+
+> You can view the Excel files saved in the `database/` folder.
+
+![View Attendance](assets/7_ViewAttendance.png)
+
 
 ---
 
@@ -62,63 +111,21 @@ Make sure to replace it in:
 PresenSee/
 │
 ├── attendance/               # Stores daily attendance CSVs (auto-generated)
-├── database/                 # Stores Excel exports of attendance
+├── database/                 # Stores Excel (.xlsx) exports
 ├── dataset/
-│   └── users/                # Contains face image folders for each user
+│   └── users/                # User image folders (e.g. 101_John/)
 ├── models/
 │   ├── haarcascade_frontalface_default.xml
 │   └── trainer.yml
 ├── src/core/
-│   ├── face_register.py      # Script to register new users
-│   ├── face_trainer.py       # Trains the recognizer with user images
-│   └── face_recognition.py   # Real-time face recognition and attendance
-├── convertToExcel.py         # Converts CSV attendance logs to .xlsx
-├── requirement.txt
+│   ├── face_register.py      # Register a new user
+│   ├── face_trainer.py       # Train recognition model
+│   ├── face_recognition.py   # Detect and mark attendance
+│   └── convertToExcel.py     # CSV ➝ Excel converter
+├── gui.py                    # Graphical Interface
+├── requirement.txt           # Required Packages
 └── README.md
 ```
-
----
-
-## How to Use
-
-### 1. Register a New User
-
-```bash
-python src/core/face_register.py
-```
-
-> Enter user ID and name when prompted. The script will capture 100 images from your webcam.
-
----
-
-### 2. Train the Model
-
-```bash
-python src/core/face_trainer.py
-```
-
-> This generates a `trainer.yml` model based on registered face data.
-
----
-
-### 3. Run Face Recognition and Mark Attendance
-
-```bash
-python src/core/face_recognition.py
-```
-
-> The camera window will open, and faces will be detected.  
-> On successful recognition, attendance will be logged to `/attendance/%d-%B-%Y.csv`.
-
----
-
-### 4. Export Attendance to Excel
-
-```bash
-python convertToExcel.py
-```
-
-> Converts the latest attendance CSV to `.xlsx` format and saves it in the `/database/` folder.
 
 ---
 
@@ -130,6 +137,7 @@ opencv-contrib-python
 pandas
 numpy
 openpyxl
+pillow
 ```
 
 ---
@@ -139,3 +147,8 @@ openpyxl
 - Camera auto-closes after a timeout (default: 60 seconds) or if you press `q`.
 - Ensure good lighting and clear face visibility for best recognition accuracy.
 
+---
+
+## 👨‍💻 Author
+
+Made with ❤️ for learning and experimentation by [Sumanxhub](https://github.com/Sumanxhub/).
