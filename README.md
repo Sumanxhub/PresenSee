@@ -149,6 +149,6 @@ pillow
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 Made with ❤️ for learning and experimentation by [Sumanxhub](https://github.com/Sumanxhub/).
