@@ -3,7 +3,7 @@ import os
 import time
 
 # Define paths
-BASE_DIR = "/absolute/path/to/PresenSee/"
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 HAARCASCADE_PATH = os.path.join(
     BASE_DIR, "models", "haarcascade_frontalface_default.xml")
 USER_DATA_PATH = os.path.join(BASE_DIR, "dataset", "users")
@@ -18,47 +18,49 @@ def register_face(user_id, user_name):
 
     cap = cv2.VideoCapture(0)
     count = 0
-    total_images = 100
 
     print("Starting face registration. Position yourself in front of the camera.")
-    time.sleep(2)  # Give user time to adjust position
+    time.sleep(2)
 
-    while count < total_images:
+    while count < 100:
         ret, frame = cap.read()
         if not ret:
-            print("Camera failed to open.")
             break
 
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        faces = face_cascade.detectMultiScale(
-            gray, scaleFactor=1.2, minNeighbors=5)
+        faces = face_cascade.detectMultiScale(gray, 1.3, 5)
 
         for (x, y, w, h) in faces:
-            face_img = gray[y:y+h, x:x+w]  # Capture face in color
-            img_path = os.path.join(user_folder, f"{count+1}.jpg")
+            face_img = frame[y:y+h, x:x+w]
+            img_path = os.path.join(user_folder, f"{count}.jpg")
             cv2.imwrite(img_path, face_img)
             count += 1
 
             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            cv2.putText(frame, f"Capturing {count}/{total_images}", (x, y - 10),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
-
-        cv2.putText(frame, "Press 'q' to quit early", (10, 30),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
+            cv2.putText(frame, f"Capturing {count}/100", (x, y - 10),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
 
         cv2.imshow('Face Registration', frame)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            print("Registration stopped manually.")
+        if cv2.waitKey(100) & 0xFF == ord('q'):
             break
 
     cap.release()
     cv2.destroyAllWindows()
-    print(f"Captured {count} images for user: {user_name}")
+    print(f"Captured {count} images for user {user_name}.")
 
 
 if __name__ == "__main__":
-    user_id = input("Enter User ID (e.g., 101): ").strip()
-    user_name = input("Enter User Name (e.g., Alice): ").strip()
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Register a user's face")
+    parser.add_argument("--id", required=True, help="User ID (e.g., 101)")
+    parser.add_argument("--name", required=True,
+                        help="User name (e.g., Alice)")
+
+    args = parser.parse_args()
+
+    user_id = args.id.strip()
+    user_name = args.name.strip()
 
     if not user_id.isdigit() or not user_name:
         print("Invalid input. Please enter a numeric ID and a non-empty name.")
