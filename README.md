@@ -94,7 +94,7 @@ python gui.py
 
 > Click the **Convert CSV to Excel** button to export attendance logs as Excel files.
 
-![Convert CSV to Excel](assets/6_converToExcel.png)
+![Convert CSV to Excel](assets/6_convertToExcel.png)
 
 ### Step 8: View Attendance
 
